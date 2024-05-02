@@ -27,6 +27,12 @@ void addNode() {
             cout << "\033[31nDuplicate roll number not allowed\033]0m" << endl;
             return;
         }
+        //if the list is empty, make the new node the start
+        newNode->next = START; //step 3: make the new node point to the first node
+        if (START != NULL){
+            START->prev = newNode;
+        }
+        }
 
     }
 }

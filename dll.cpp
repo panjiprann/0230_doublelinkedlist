@@ -70,9 +70,47 @@ void addNode() {
         *current = (*current)->next;
      }
     return (*current != NULL);
+     }
+     void deleteNode()
+{
+    Node *previous, *current;
+    int rollNo;
+
+    cout <<"\nEnter the roll number of the student whose record is to be deleted : ";
+    cin >> rollNo; // step 3 : get the roll number to be deleted
+
+     if (START == NULL)
+    {
+        cout << "List is empty" << endl;
+        return;
     }
+
+    current = START; // step 1 : start from the first node
+    previous = NULL;
+
+     // Locate the node to be deleted
+    while (current != NULL && current->noMhs != rollNo)
+    {
+        cout << "\033[31mThe record wtih toll number " << rollNo << " not found\033[0m" << endl;
+        return;
     }
+
+    // Node to be deleted is the first node
+    if (current == START)
+    {
+        START = START->next; // step 2 : update the START pointer
+        if (START != NULL)
+        {
+
+        }
+
+    }
+
+
+
 }
+    }
+    }
 
 
 

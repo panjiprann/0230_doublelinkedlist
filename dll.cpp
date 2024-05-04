@@ -12,27 +12,29 @@ struct Node
 
 Node* START = NULL;
 
-void addNode() {
-    Node* newNode = new Node(); //step 1 : create new node
-    cout << "\nEnter the roll number of the student: ";
-    cin >> newNode->noMhs;      //assign value to the data field of the new node
-    cout << "\nEnter the name of the student: ";
-    cin >> newNode->name;       // assign value to the data field of the new node
+void addNode(){
+    Node* newNode = new Node(); // step 1 : create a new node
+    cout << "\nEnter the roll number of the student : ";
+    cin >> newNode->noMhs;      // assign value to the data field of the new node
+    cout << "\nEnter the name of the student : ";
+    cin >> newNode->name;      // assign value to the data field of the new node
 
-
-    // Insert the new node in the list 
-    if (START == NULL || newNode->noMhs <= START->noMhs) {
+    // Insert the nw node in the list
+    if (START != NULL && newNode->noMhs == START->noMhs) {
 
         if (START != NULL && newNode->noMhs == START->noMhs){
-            cout << "\033[31nDuplicate roll number not allowed\033]0m" << endl;
+            cout << "\033[31mDuplicate roll not allowed\033]0m" << endl;
             return;
         }
-        //if the list is empty, make the new node the start
-        newNode->next = START;    //step 3: make the new node point to the first node
-        if (START != NULL){
-            START->prev = newNode;     //step 4: make the first node point to the new node
+        // if the list empty, make the new node the START
+        newNode->next = START; // step 3 : make the new node point to the first node
+        if (START != NULL) {
+            START->prev = newNode; // step 4 : make the first node point to the new node
         }
-        else{
+        newNode->prev = NULL; // step 5 : make the new node point to NULL
+        START = newNode; // step 6 : make the new node the first node
+    }
+    else{
         // insert the new node in the middle or at the end
         Node *current = START; // step 1.a : start from the first node
         Node *previous = NULL; // step 1.b : previous node is NULL initially
@@ -41,7 +43,8 @@ void addNode() {
         {
             previous = current; // step 1.d : move the previous to the current node
             current = current->next; // step 1.e : move the currrent to the next node
-        }      
+        }
+
         newNode->next = previous; // step 4 : make the next field of the new node point to current
         newNode->prev = previous; // step 5 : make the previous field of the new node point to previous
 
@@ -59,19 +62,23 @@ void addNode() {
             // if previous is still NULL, it means newNode is now the first node
             START = newNode;
         }
-        
-        bool search(int rollNo, Node **previous, Node **current)
-       {
-        *previous = NULL;
-        *current = START;
-        while (*current != NULL && (*current)->noMhs != rollNo)
-     {
+    }
+    
+}
+
+bool search(int rollNo, Node **previous, Node **current)
+{
+    *previous = NULL;
+    *current = START;
+    while (*current != NULL && (*current)->noMhs != rollNo)
+    {
         *previous = * current;
         *current = (*current)->next;
-     }
+    }
     return (*current != NULL);
-     }
-     void deleteNode()
+}
+
+void deleteNode()
 {
     Node *previous, *current;
     int rollNo;
@@ -79,7 +86,7 @@ void addNode() {
     cout <<"\nEnter the roll number of the student whose record is to be deleted : ";
     cin >> rollNo; // step 3 : get the roll number to be deleted
 
-     if (START == NULL)
+    if (START == NULL)
     {
         cout << "List is empty" << endl;
         return;
@@ -88,7 +95,7 @@ void addNode() {
     current = START; // step 1 : start from the first node
     previous = NULL;
 
-     // Locate the node to be deleted
+    // Locate the node to be deleted
     while (current != NULL && current->noMhs != rollNo)
     {
         cout << "\033[31mThe record wtih toll number " << rollNo << " not found\033[0m" << endl;
@@ -103,9 +110,8 @@ void addNode() {
         {
            START->prev = NULL; 
         }
-
     }
-     else
+    else
     { // Node to be deletd is not the first node
         previous->next = current->next;
         if (current->next != NULL)
@@ -117,11 +123,13 @@ void addNode() {
     // release the memory of the node marked as current
     delete current;
     cout << "\x1b[32mRecord with roll number " << rollNo << " deleted\x1b[0m" << endl;
-  }
-  bool listEmpty()
-  {
+}
+
+bool listEmpty()
+{
     return (START == NULL);
 }
+
 void traverse()
 {
     if (listEmpty())
@@ -132,7 +140,7 @@ void traverse()
         Node *currentNode = START; // step 1
         while (currentNode != NULL) // step 2
         {
-             cout << currentNode->noMhs << " " << currentNode->name << endl; // step 3
+            cout << currentNode->noMhs << " " << currentNode->name << endl; // step 3
         }
     }
 }
@@ -153,8 +161,9 @@ void revtravese()
             cout << currentNode->noMhs << " " << currentNode->name << endl;
             currentNode = currentNode->prev;
         }
-
+        
     }
+    
 }
 void searchData(){
     if (listEmpty() == true)
@@ -166,7 +175,7 @@ void searchData(){
     cout << "\nEnter the roll number of the student whose record you want to ss=earch: " ;
     int num;
     cin >> num;
-    if (search(num, &prev, %curr) == false)
+    if (search(num, &prev, &curr) == false)
         cout << "\nRecod not found" << endl;
     else{
         cout << "\nRecord found" << endl;
@@ -174,7 +183,7 @@ void searchData(){
         cout << "\nName: " << curr->name <<endl;
     }
 }
-}
+
 int main(){
     while (true)
     {
@@ -216,9 +225,9 @@ int main(){
         }
         catch(const exception& e)
         {
-            cout << "Check for the value entered."
+            cout << "Check for the value entered." << endl;
         }
-
+        
     }
-
+    
 }

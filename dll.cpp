@@ -56,6 +56,8 @@ void addNode() {
         }
         else
         {
+            // if previous is still NULL, it means newNode is now the first node
+            START = newNode;
 
         }
     }
